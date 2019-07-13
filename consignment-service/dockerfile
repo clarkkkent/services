@@ -4,6 +4,8 @@ RUN apk --no-cache add git
 
 COPY . /go/src/github.com/clarkkkent/services/consignment-service
 
+RUN GO111MODULE=on
+
 RUN go mod download
 
 WORKDIR /go/src/github.com/clarkkkent/services/consignment-service

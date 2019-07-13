@@ -1,6 +1,11 @@
 version: '3.2'
 services:
-  golang:
+  consignment-service:
     build: ./consignment-service
     ports:
       - 50051:50051
+
+  consignment-cli:
+    build: ./consignment-cli
+    ports:
+      - 50052:50051

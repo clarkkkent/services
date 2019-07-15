@@ -4,11 +4,11 @@ RUN apk --no-cache add git
 
 COPY . /go/src/github.com/clarkkkent/services/consignment-service
 
-RUN GO111MODULE=on
-
-RUN go mod download
-
 WORKDIR /go/src/github.com/clarkkkent/services/consignment-service
+
+RUN go get -u github.com/golang/dep/cmd/dep
+
+RUN dep init && dep ensure
 
 RUN go get -v
 

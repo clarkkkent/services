@@ -10,3 +10,13 @@ services:
     build: ./consignment-cli
     environment:
       MICRO_REGISTRY: "mdns"
+    depends_on:
+      - consignment-service
+
+  vessel-service:
+    build: ./vessel-service
+    environment:
+      MICRO_ADDRESS: ":50051"
+      MICRO_REGISTRY: "mdns"
+
+

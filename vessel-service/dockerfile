@@ -1,0 +1,25 @@
+FROM golang:alpine as builder
+
+RUN apk --no-cache add git
+
+COPY . /go/src/github.com/clarkkkent/services/vessel-service
+
+WORKDIR /go/src/github.com/clarkkkent/services/vessel-service
+
+RUN go get -u github.com/golang/dep/cmd/dep
+
+RUN dep init && dep ensure
+
+RUN go get -v
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o vessel-service .
+
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /app
+
+COPY --from=builder /go/src/github.com/clarkkkent/services/vessel-service .
+
+CMD ["./vessel-service"]
